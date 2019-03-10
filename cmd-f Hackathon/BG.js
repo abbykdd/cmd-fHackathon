@@ -127,7 +127,6 @@ function getRand(min, max){
     function startBGAnimation(){
         update();
         updateGirl();
-        // updateObstacle();
         window.requestAnimationFrame(draw);
     }
 
@@ -141,60 +140,55 @@ function getRand(min, max){
 
     if (!('webkitSpeechRecognition' in window)) {
     alert("your browser doesn't support this function");
-} else {
-    var key = ['jump', 'up']; //keyword
-    var grammar = '#JSGF V1.0; grammar key; public <key> = ' + key.join(' | ') +';';
+    } else {
+        var key = ['jump', 'up']; //keyword
+        var grammar = '#JSGF V1.0; grammar key; public <key> = ' + key.join(' | ') +';';
 
-    var recognition = new webkitSpeechRecognition();
-    //var speechRecogniionList = new SpeechGrammarList();
-    //speechRecogniionList.addFromString(grammar, 1);
-    //recognition.grammars = speechRecogniionList;
+        var recognition = new webkitSpeechRecognition();
 
-    recognition.lang = 'en-US';
+        recognition.lang = 'en-US';
 
-    //will continue to listen even after user stops talking
-    recognition.continuous = true; 
-    //no interim result
-    recognition.interimResults = true; 
-    recognition.maxAlternatives = 1;
-/**   recognition.onstart = function() { 
+        //will continue to listen even after user stops talking
+        recognition.continuous = true; 
+        //interim result
+        recognition.interimResults = true; 
+        recognition.maxAlternatives = 1;
 
-    }*/
-    recognition.onresult = function(event) { 
-        var last = event.results.length - 1;
-        var word = event.results[last][0].transcript;
+        recognition.onresult = function(event) { 
+            var last = event.results.length - 1;
+            var word = event.results[last][0].transcript;
 
-        var array = word.split(" ");
-        console.log("I hear this" + word);
+            var array = word.split(" ");
+            console.log("I hear this" + word);
 
-        for(var i = 0; i < array.length; i++) {
-          console.log(array[i]);
-          if(array[i] == "jump" || array[i] == 'up' || array[i] == 'dumb' || array[i] == 'John'
-             || array[i] == 'job' || array[i] == "trump" || array[i] == "fly") {
-            console.log("jump value " + jump);
-            jump = true;
-            inTransaction = true;
-            jumpy = 130;
-            console.log("jump value " + jump);
-          break;
-          }
-        }
-        
+            for(var i = 0; i < array.length; i++) {
+              console.log(array[i]);
+              if(array[i] == "jump" || array[i] == 'up' || array[i] == 'dumb' || array[i] == 'John'
+                 || array[i] == 'job' || array[i] == "trump" || array[i] == "fly") {
+                console.log("jump value " + jump);
+                jump = true;
+                inTransaction = true;
+                jumpy = 130;
+                console.log("jump value " + jump);
+              break;
+              }
+            }
+            
 
-     }
-    recognition.onerror = function(event) { 
-        console.log("an error occurred");
-        console.log(event);
-     }
-    recognition.onend = function() { 
-        console.log("it's done");
-     }
-}
+         }
+        recognition.onerror = function(event) { 
+            console.log("an error occurred");
+            console.log(event);
+         }
+        recognition.onend = function() { 
+            console.log("it's done");
+         }
+    }
 
-document.body.onclick = function() {
-    recognition.start();
-    console.log('waiting for command');
-}
+    document.body.onclick = function() {
+        recognition.start();
+        console.log('waiting for command');
+    }
     
 }
 
